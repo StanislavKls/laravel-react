@@ -1,0 +1,50 @@
+version: "3.8"
+
+services:
+  app:
+    build: .
+    container_name: app
+    depends_on:
+      - pgdb
+    working_dir: /var/www/
+    volumes:
+      - ./:/var/www
+    networks:
+      - laravel
+
+  pgdb:
+    image: postgres
+    environment:
+      - POSTGRES_DB=db_app
+      - POSTGRES_USER=app
+      - POSTGRES_PASSWORD=app
+    container_name: pgdb
+    ports:
+      - 5432:5432
+    volumes:
+      - pgdbdata:/var/lib/postgresql/data/
+    networks:
+      - laravel
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+      - 8000:80
+    volumes:
+      - ./:/var/www
+      - ./docker/nginx:/etc/nginx/conf.d
+    networks:
+      - laravel
+  pgadmin:
+    image: chorss/docker-pgadmin4
+    ports:
+      - 5050:5050
+    networks:
+      - laravel
+volumes:
+  pgdbdata: null
+networks:
+  laravel:
+    driver: bridge
