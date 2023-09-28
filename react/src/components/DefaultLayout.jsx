@@ -22,7 +22,11 @@ function classNames(...classes) {
 }
 
 export default function DefaultLayout() {
-  console.log(navigation);
+  
+  const logout = (ev) => {
+    ev.preventDefault();
+    console.log('logout');
+  };
   return (
     <>
       <div className="min-h-full">
@@ -61,15 +65,6 @@ export default function DefaultLayout() {
                   </div>
                   <div className="hidden md:block">
                     <div className="ml-4 flex items-center md:ml-6">
-                      <button
-                        type="button"
-                        className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                      >
-                        <span className="absolute -inset-1.5" />
-                        <span className="sr-only">View notifications</span>
-                        <BellIcon className="h-6 w-6" aria-hidden="true" />
-                      </button>
-
                       {/* Profile dropdown */}
                       <Menu as="div" className="relative ml-3">
                         <div>
@@ -89,21 +84,15 @@ export default function DefaultLayout() {
                           leaveTo="transform opacity-0 scale-95"
                         >
                           <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                            {userNavigation.map((item) => (
-                              <Menu.Item key={item.name}>
-                                {({ active }) => (
-                                  <a
-                                    href={item.href}
-                                    className={classNames(
-                                      active ? 'bg-gray-100' : '',
-                                      'block px-4 py-2 text-sm text-gray-700'
-                                    )}
-                                  >
-                                    {item.name}
-                                  </a>
-                                )}
-                              </Menu.Item>
-                            ))}
+                            <Menu.Item>
+                                <a
+                                  href="#"
+                                  onClick={(ev) => logout(ev)}
+                                  className='block px-4 py-2 text-sm text-gray-700'
+                                >
+                                  Выход
+                                </a>
+                            </Menu.Item>
                           </Menu.Items>
                         </Transition>
                       </Menu>
@@ -148,26 +137,16 @@ export default function DefaultLayout() {
                       <div className="text-base font-medium leading-none text-white">{user.name}</div>
                       <div className="text-sm font-medium leading-none text-gray-400">{user.email}</div>
                     </div>
-                    <button
-                      type="button"
-                      className="relative ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                    >
-                      <span className="absolute -inset-1.5" />
-                      <span className="sr-only">View notifications</span>
-                      <BellIcon className="h-6 w-6" aria-hidden="true" />
-                    </button>
                   </div>
                   <div className="mt-3 space-y-1 px-2">
-                    {userNavigation.map((item) => (
                       <Disclosure.Button
-                        key={item.name}
                         as="a"
-                        href={item.href}
+                        href="#"
+                        onClick={(ev) => logout(ev)}
                         className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
                       >
-                        {item.name}
+                        Выйти
                       </Disclosure.Button>
-                    ))}
                   </div>
                 </div>
               </Disclosure.Panel>
