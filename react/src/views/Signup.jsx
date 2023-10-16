@@ -30,11 +30,11 @@ export default function Signup() {
       })
       .catch((error) => {
         if (error.response) {
-          const finalErrors = Object.values(error.response.data.errors).reduce((accum, next) => [...accum, ...next], [])
-          console.log(finalErrors)
-          setError({__html: finalErrors.join('<br>')})
-        }
-        console.error(error)
+            const finalErrors = Object.values(error.response.data.errors).reduce((accum, next) => [...accum, ...next], [])
+            console.log(finalErrors)
+            setError({__html: finalErrors.join('<br>')})
+          }
+          console.error(error)
       });
   };
 
@@ -66,7 +66,7 @@ export default function Signup() {
         <div className="-space-y-px rounded-md shadow-sm">
           <div>
             <label htmlFor="full-name" className="sr-only">
-              Full Name
+              Полное имя
             </label>
             <input
               id="full-name"
@@ -81,7 +81,7 @@ export default function Signup() {
           </div>
           <div>
             <label htmlFor="email-address" className="sr-only">
-              Email address
+              Email
             </label>
             <input
               id="email-address"
